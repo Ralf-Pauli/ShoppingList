@@ -1,11 +1,22 @@
 import { z } from "zod";
 
+const lowerCaseRegex = /(?=.*[a-z])/;
+const upperCaseRegex = /(?=.*[A-Z])/;
+const numberRegex = /(?=.*\d)/;
+const symbolRegex = /(?=.*[@$!%*?&])/;
+const minLength = 8;
+
 export const UserSchema = z.object({
     id: z.string().uuid(),
     email: z.string().email(),
-    password: z.string().min(8),
-    createdAt: z.string().optional(),
-    updatedAt: z.string().optional(),
+    password: z.string()
+        .min(minLength, "Password must be at least 8 characters long.")
+        .regex(lowerCaseRegex, "Password must contain at least one lowercase letter.")
+        .regex(upperCaseRegex, "Password must contain at least one uppercase letter.")
+        .regex(numberRegex, "Password must contain at least one number.")
+        .regex(symbolRegex, "Password must contain at least one symbol."),
+    createdAt: z.date().optional(),
+    updatedAt: z.date().optional(),
 });
 
 export type User = z.infer<typeof UserSchema>;
