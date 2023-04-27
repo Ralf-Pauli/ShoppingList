@@ -1,9 +1,9 @@
 // app.ts
 import express, { Express } from "express";
 import dotenv from "dotenv";
-import shoppingListRoutes from "./routes/ShoppingList.route";
-import itemRoutes from "./routes/Item.route";
-import userAuthRoutes from "./routes/Auth.route";
+import shoppingListRoutes from "./api/ShoppingList.route";
+import itemRoutes from "./api/Item.route";
+import userAuthRoutes from "./api/Auth.route";
 import { authenticateJWT } from "./middleware/JWT.middleware";
 import setupMiddleware from "./middleware/setup.middleware";
 import { notFoundHandler } from "./middleware/notFoundHandler.middleware";

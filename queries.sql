@@ -1,9 +1,10 @@
+
 -- CREATE DATABASE shoppinglist;
 
--- DROP SCHEMA public CASCADE;
--- CREATE SCHEMA public;
--- GRANT ALL ON SCHEMA public TO postgres;
--- GRANT ALL ON SCHEMA public TO public;
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO public;
 
 CREATE TABLE items (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -34,7 +35,9 @@ CREATE TABLE users (
     length(password) >= 8
   ),
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  reset_token VARCHAR(255),
+  reset_token_expires TIMESTAMP WITH TIME ZONE
 );
 
 CREATE TABLE shared_lists (

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import { pool } from '../services/database';
-import "../utils/express.util";
+import { pool } from '../services/Database';
+import "../helpers/express.util";
+import { SourceTextModule } from 'vm';
 
 const handleError = (error: any, res: Response, errorMessage: string) => {
   const castedError = <Error>error;
@@ -10,7 +11,7 @@ const handleError = (error: any, res: Response, errorMessage: string) => {
 const createShoppingListQuery = "INSERT INTO shopping_lists (name, owner_id) VALUES (\$1, \$2) RETURNING *";
 const getAllShoppingListsQuery = "SELECT * FROM shopping_lists";
 const getAllShoppingListsByOwnerIdQuery = "SELECT * FROM shopping_lists WHERE owner_id = \$1";
-const getShoppingListByIdQuery = "SELECT * FROM shopping_lists WHERE id = \$1";
+const getShoppingListByIdQuery = "SELECT * FROM shopping_lists WHERE name = \$1";
 const updateShoppingListQuery = "UPDATE shopping_lists SET name = \$1, updated_at = NOW() WHERE id = \$2 RETURNING *";
 const deleteShoppingListQuery = "DELETE FROM shopping_lists WHERE id = \$1 RETURNING *";
 
@@ -24,7 +25,7 @@ export const createShoppingList = async (req: Request, res: Response) => {
 
   try {
     // Check if a shopping list with the same name already exists
-    const existingShoppingList = await pool.query("SELECT * FROM shopping_lists WHERE name = \$1", [name]);
+    const existingShoppingList = await pool.query(getShoppingListByIdQuery, [name] );
 
     if (existingShoppingList.rowCount > 0) {
       res.status(409).json({ error: 'A shopping list with the same name already exists' });

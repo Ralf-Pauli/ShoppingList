@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@trycourier/courier": "^4.2.0",
     "bcrypt": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -19,6 +20,7 @@
     "jsonwebtoken": "^9.0.0",
     "metlo": "^0.0.15",
     "morgan": "^1.10.0",
+    "node-fetch": "^3.3.1",
     "password-validator": "^5.3.0",
     "pg": "^8.10.0",
     "zod": "^3.21.4"

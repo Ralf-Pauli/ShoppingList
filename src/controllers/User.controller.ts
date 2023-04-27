@@ -1,6 +1,6 @@
 // UserController.ts
 import { Request, Response } from 'express';
-import { pool } from '../services/database';
+import { pool } from '../services/Database';
 
 const handleError = (error: any, res: Response) => {
   const castedError = <Error>error;

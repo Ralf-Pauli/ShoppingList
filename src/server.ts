@@ -1,5 +1,5 @@
 import expressApp from './app';
-import { pool } from './services/database';
+import { pool } from './services/Database';
 
 const DEFAULT_PORT = 3000;
 const port = process.env.PORT || DEFAULT_PORT;

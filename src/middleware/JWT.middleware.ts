@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt, { Secret } from 'jsonwebtoken';
 import * as cookie from 'cookie';
-import "../utils/express.util"
+import "../helpers/express.util"
 
 const JWT_SECRET_ERROR = "Server error: JWT secret not defined";
 const AUTHENTICATION_REQUIRED_ERROR = "Please authenticate";
