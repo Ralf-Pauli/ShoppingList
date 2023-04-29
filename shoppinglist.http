@@ -13,8 +13,8 @@ Host: localhost:3000
 Content-Type: application/json
 
 {
-    "email": "ralf.pauli@gmail.com",
-    "password": "Passoword!23"
+    "email": "ralf1.pauli@gmail.com",
+    "password": "Paoword!23"
 }
 
 ###
@@ -24,9 +24,33 @@ Content-Type: application/json
 Content-Length: 27
 
 {
-    "name": "Grillen"
+    "name": "Grillen2"
 }
 
 ###
 GET /api/shopping-lists/ HTTP/1.1
+Host: localhost:3000
+###
+POST /api/shopping-lists/share HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+    "shopping_list_id": "02233efe-47ff-49d9-8e7b-5caf9fb40e22",
+    "sharing_user_id": "f6d869e1-9a8b-4ae3-90b1-74d236ed6703",
+    "receiving_user_id": "46dd33a1-7320-4d7f-a9e6-7ac18dadb67a"
+}
+###
+GET /api/shopping-lists/shared/user/46dd33a1-7320-4d7f-a9e6-7ac18dadb67a HTTP/1.1
+Host: localhost:3000
+###
+PUT /api/shopping-lists/share/123e4567-e89b-12d3-a456-426614174003 HTTP/1.1
+Host: localhost:3000
+Content-Type: application/json
+
+{
+    "status": "accepted"
+}
+###
+DELETE /api/shopping-lists/share/123e4567-e89b-12d3-a456-426614174003 HTTP/1.1
 Host: localhost:3000

@@ -7,7 +7,7 @@ import userAuthRoutes from "./api/Auth.route";
 import { authenticateJWT } from "./middleware/JWT.middleware";
 import setupMiddleware from "./middleware/setup.middleware";
 import { notFoundHandler } from "./middleware/notFoundHandler.middleware";
-import { errorHandler } from "./middleware/errorHandler.middleware";
+import { handleError } from "./middleware/ErrorHandler.middleware";
 
 dotenv.config();
 
@@ -23,6 +23,5 @@ app.use("/api/users", userAuthRoutes);
 // app.use("/api/user", userRoutes);
 
 app.use(notFoundHandler);
-app.use(errorHandler);
 
 export default app;

@@ -9,6 +9,16 @@
             "database": "shoppinglist",
             "username": "postgres",
             "password": "postgres"
+        },
+        {
+            "previewLimit": 50,
+            "server": "192.168.178.201",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "shopping_list",
+            "database": "shopping_list",
+            "username": "rpauli"
         }
     ]
 }

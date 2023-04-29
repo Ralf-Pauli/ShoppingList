@@ -1,6 +1,8 @@
-import { NextFunction, Request, Response } from "express";
+import { Response } from "express";
+import logger from "../helpers/Logger";
 
-export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error(err.stack);
-    res.status(500).json({ message: err.message });
-};
+export function handleError(error: any, res: Response, errorMessage: string) {
+    const castedError = <Error>error;
+    logger.error('Error:', castedError.message, castedError.stack);
+    res.status(500).send(errorMessage + castedError.message);
+}

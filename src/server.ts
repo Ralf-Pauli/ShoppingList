@@ -1,36 +1,42 @@
 import expressApp from './app';
+import logger from './helpers/Logger';
 import { pool } from './services/Database';
+import { Server } from 'http';
 
-const DEFAULT_PORT = 3000;
-const port = process.env.PORT || DEFAULT_PORT;
 
-const server = expressApp.listen(port, () => {
-  pool.connect()
-    .then(() => {
-      console.log("Connected to DB");
-    })
-    .catch((error) => {
-      console.error("Error connecting to DB:", error);
+const port = process.env.PORT || 3000;
+
+async function startServer() {
+  try {
+    await pool.connect();
+    logger.info("Connected to DB");
+
+    const server = expressApp.listen(port, () => {
+      logger.info(`[server]: Server is running at http://localhost:${port}`);
+    });
+
+    server.on('error', (error) => {
+      logger.error("Server encountered an error:", error);
       process.exit(1);
     });
-  console.log(`[server]: Server is running at http://localhost:${port}`);
-});
 
-server.on('error', (error) => {
-  console.error("Server encountered an error:", error);
-  process.exit(1);
-});
+    process.on('SIGINT', () => shutdown(server));
+    process.on('SIGTERM', () => shutdown(server));
+  } catch (error) {
+    logger.error("Error connecting to DB:", error);
+    process.exit(1);
+  }
+}
 
-process.on('SIGINT', shutdown);
-process.on('SIGTERM', shutdown);
-
-async function shutdown() {
-  console.log('Closing connection pool...');
+async function shutdown(server: Server) {
+  logger.info('Closing connection pool...');
   await pool.end();
-  console.log('Connection pool closed');
+  logger.info('Connection pool closed');
 
   server.close(() => {
-    console.log('Server stopped');
+    logger.info('Server stopped');
     process.exit(0);
   });
 }
+
+startServer();
